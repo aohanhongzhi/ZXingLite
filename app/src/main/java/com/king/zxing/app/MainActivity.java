@@ -23,6 +23,7 @@ import android.provider.MediaStore;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.king.zxing.CameraScan;
@@ -72,11 +73,15 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     private Toast toast;
 
+    private TextView displayTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        displayTextView = (TextView) findViewById(R.id.display);
+        displayTextView.setTextIsSelectable(true);
     }
 
     @Override
@@ -87,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
                 case REQUEST_CODE_SCAN:
                     String result = CameraScan.parseScanResult(data);
                     showToast(result);
+                    displayTextView.setText(result);
                     break;
                 case REQUEST_CODE_PHOTO:
                     parsePhoto(data);
